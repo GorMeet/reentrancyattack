@@ -26,10 +26,6 @@
   color: black;
 }
 
-/* .active {
-  background-color: #80827c;
-} */
-
 
 body {
   display: flex;
@@ -128,9 +124,6 @@ footer {
         <label>Current Balance:</label>
         <span id="balance"></span>
     <hr />
-    <!-- <label>Balance:</label>
-    <span id="balance"></span> -->
-  
     <div class="input-container">
       <label>Deposit Amount (ETH):</label>
       <input type="text" id="deposit-amount" placeholder="e.g. 1.5" />
@@ -146,9 +139,7 @@ footer {
     <div id="message"></div>
   </div>
   <script>
-    // Check if Web3 is already injected by MetaMask
     if (typeof window.ethereum !== "undefined") {
-      // Use MetaMask's provider
       window.web3 = new Web3(window.ethereum);
       ethereum.enable(); // Request access to the user's MetaMask account
     } else {
@@ -178,7 +169,6 @@ web3.eth.getAccounts(function(error, accounts) {
   } else {
     const account = accounts[0];
 
-    // Call the contract's deposit function and specify the sender address
     kingOfEtherContract.methods.deposit().send({from: account, value: weiAmount})
       .on("receipt", function(receipt) {
         console.log("Transaction receipt:", receipt);
@@ -196,7 +186,6 @@ web3.eth.getAccounts(function(error, accounts) {
 
 
     function checkKing() {
-      // Call the contract's king function
       kingOfEtherContract.methods
         .king()
         .call()
@@ -209,7 +198,6 @@ web3.eth.getAccounts(function(error, accounts) {
           alert(`Failed to check king: ${error.message}`);
         });
 
-      // Call the contract's balance function
       kingOfEtherContract.methods
         .balance()
         .call()
@@ -227,7 +215,6 @@ web3.eth.getAccounts(function(error, accounts) {
     
 
     function reset() {
-      // Get the current account
       web3.eth.getAccounts(function (error, accounts) {
         if (error) {
           console.error(error);
@@ -251,13 +238,12 @@ web3.eth.getAccounts(function(error, accounts) {
   </script>
   </body>
   <footer>
-    <a href="https://sepolia.etherscan.io/address/0xd9e09df1298fcd311c00f686a625200fa936227a#internaltx#code">Vulnerable Contract Address</a>
+    <a href="https://sepolia.etherscan.io/address/0xc160d9cdc955a037ee4d241a0f8dbf0f8d9b55a7#internaltx#code">Vulnerable Contract Address</a>
     <span style="margin: 0 10px;">&nbsp;</span>
 
-    <a href="https://sepolia.etherscan.io/address/0x1faae146a8af508a68c02e51ca59e48e92e7bad8#code">Attack Contract Address</a>
+    <a href="https://sepolia.etherscan.io/address/0x1dceD8dc276865BE8e73492B5f821dDBB92Aa465#code">Attack Contract Address</a>
     <span style="margin: 0 10px;">&nbsp;</span>
 
-    <a href="https://sepolia.etherscan.io/address/0x79e2f45a524af7196046619486d1874d16b7daac#code">Prevent a reentrancy attack</a>
+    <a href="#code">Prevent a DoS attack</a>
   </footer>
-  
 </html>
